@@ -4,7 +4,7 @@ import cv2
 import ntcore
 import numpy as np
 
-from config import ConfigStore, RemoteConfig
+from config.config import ConfigStore, RemoteConfig
 
 class ConfigSource:
     def update(self, config_store: ConfigStore) -> None:
@@ -25,15 +25,27 @@ class FileConfigSource(ConfigSource):
             config_store.local_config.server_ip = config_data['server_ip']
             config_store.local_config.stream_port = config_data['stream_port']
 
-        calibration_store = cv2.FileStorage(self.CALIBRATION_FILENAME, cv2.FILE_STORAGE_READ)
-        camera_matrix = calibration_store.getNode('camera_matrix').mat()
-        distortion_coefficients = calibration_store.getNode('distortion_coefficients').mat()
-        calibration_store.release()
+        # calibration_store = cv2.FileStorage(self.CALIBRATION_FILENAME, cv2.FILE_STORAGE_READ)
+        # camera_matrix = calibration_store.getNode('camera_matrix').mat()
+        # distortion_coefficients = calibration_store.getNode('distortion_coefficients').mat()
+        # calibration_store.release()
 
-        if camera_matrix is np.ndarray and distortion_coefficients is np.ndarray:
+        with open(self.CALIBRATION_FILENAME, 'r') as calib_file:
+            calib_data = json.loads(calib_file.read())
+
+            camera_matrix = np.array(calib_data['camera_matrix'])
+            distortion_coefficients = np.array(calib_data['distortion_coefficients'])
+
             config_store.local_config.camera_matrix = camera_matrix
             config_store.local_config.distortion_coefficients = distortion_coefficients
             config_store.local_config.has_calibration = True
+
+        # if camera_matrix is np.array and distortion_coefficients is np.array:
+        #     print('hello')
+        #     config_store.local_config.camera_matrix = camera_matrix
+        #     config_store.local_config.distortion_coefficients = distortion_coefficients
+        #     config_store.local_config.has_calibration = True
+        # print('wow')
 
 class NTConfigSource(ConfigSource):
     _init_complete: bool = False

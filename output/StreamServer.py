@@ -25,12 +25,12 @@ class MjpegServer(StreamServer):
     _frame: cv2.Mat
     _has_frame: bool = False
 
-    def _make_handler(self):  # type: ignore
+    def _make_handler(self_mjpeg):  # type: ignore
         class StreamingHandler(BaseHTTPRequestHandler):
             HTML = '''
     <html>
         <head>
-            <title>Northstar Debug</title>
+            <title>Polaris Debug</title>
             <style>
                 body {
                     background-color: black;
@@ -69,10 +69,10 @@ class MjpegServer(StreamServer):
                     self.end_headers()
                     try:
                         while True:
-                            if not self._has_frame:
+                            if not self_mjpeg._has_frame:
                                 time.sleep(0.1)
                             else:
-                                pil_im = Image.fromarray(self._frame)
+                                pil_im = Image.fromarray(self_mjpeg._frame)
                                 stream = BytesIO()
                                 pil_im.save(stream, format='JPEG')
                                 frame_data = stream.getvalue()
