@@ -19,7 +19,7 @@ def main():
     remote_config_source: ConfigSource = NTConfigSource()
 
     capture = DefaultCapture()
-    tag_detector = ArucoTagDetector(cv2.aruco.DICT_APRILTAG_16h5)
+    tag_detector = ArucoTagDetector(cv2.aruco.DICT_APRILTAG_36h11)
     pose_estimator = MultiTargetCameraPoseEstimator()
     output_publisher: OutputPublisher = NT4OutputPublisher()
     stream_server = MjpegServer()
@@ -56,7 +56,10 @@ def main():
 
         image_observations = tag_detector.detect_tags(image, config)
         pose_observation = pose_estimator.solve_camera_pose(image_observations, config)
-        [overlay_image_observation(image, x) for x in image_observations]
+
+        for obs in image_observations:
+            overlay_image_observation(image, obs)
+
         output_publisher.send(config, timestamp, pose_observation, fps)
 
         stream_server.set_frame(image)
