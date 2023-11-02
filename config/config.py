@@ -18,9 +18,9 @@ class RemoteConfig:
     camera_resolution_width: int = 1280
     camera_resolution_height: int = 720
     camera_auto_exposure: int = 1
-    camera_exposure: int = 0
-    camera_gain: int = 0
-    tag_size_m: float = 0.1524
+    camera_exposure: int = 20
+    camera_gain: int = 25
+    tag_size_m: float = 0.2
     tag_layout: any = None
 
 @dataclass

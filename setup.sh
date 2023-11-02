@@ -15,7 +15,7 @@ sudo pip install opencv_python*.whl
 
 # Install other python deps
 sudo apt install -y python3-pil
-sudo pip install pyntcore robotpy-wpimath
+sudo pip install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian/ robotpy
 
 # Cleanup
 cd ..

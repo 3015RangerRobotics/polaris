@@ -18,7 +18,7 @@ def main():
     local_config_source: ConfigSource = FileConfigSource()
     remote_config_source: ConfigSource = NTConfigSource()
 
-    capture = DefaultCapture()
+    capture = GStreamerCapture()
     tag_detector = ArucoTagDetector(cv2.aruco.DICT_APRILTAG_36h11)
     pose_estimator = MultiTargetCameraPoseEstimator()
     output_publisher: OutputPublisher = NT4OutputPublisher()
