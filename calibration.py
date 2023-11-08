@@ -58,10 +58,10 @@ class CalibrationSession:
         if retval:
             jsonDict = {
                 'calibration_date': str(datetime.datetime.now()),
-                'camera_resolution': self._imsize[::-1],
+                'img_size': self._imsize[::-1],
                 'camera_matrix': camera_matrix.tolist(),
                 'distortion_coefficients': distortion_coefficients.tolist(),
-                'reprojection_error': retval
+                'avg_reprojection_error': retval
             }
             jsonStr = json.dumps(jsonDict, indent=4)
 

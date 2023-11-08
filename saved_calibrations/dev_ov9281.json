@@ -1,6 +1,6 @@
 {
     "calibration_date": "2023-11-08 17:41:06.170378",
-    "camera_resolution": [
+    "img_size": [
         1280,
         800
     ],
@@ -30,5 +30,5 @@
             -0.04031243944860346
         ]
     ],
-    "reprojection_error": 0.48999299931988327
+    "avg_reprojection_error": 0.48999299931988327
 }
