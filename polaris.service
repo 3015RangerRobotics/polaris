@@ -2,7 +2,7 @@
 Description=Service that runs Polaris
 
 [Service]
-WorkingDirectory=/home/orangepi
+WorkingDirectory=/home/orangepi/polaris
 # Run polaris at "nice" -10, which is higher priority than standard
 Nice=-10
 ExecStart=/usr/bin/python3 /home/orangepi/polaris/polaris.py
