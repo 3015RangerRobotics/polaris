@@ -1,0 +1,16 @@
+[Unit]
+Description=Service that runs Polaris
+
+[Service]
+WorkingDirectory=/home/orangepi
+# Run polaris at "nice" -10, which is higher priority than standard
+Nice=-10
+ExecStart=/usr/bin/python3 /home/orangepi/polaris/polaris.py
+ExecStop=/bin/systemctl kill polaris
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=orangepi
+
+[Install]
+WantedBy=multi-user.target

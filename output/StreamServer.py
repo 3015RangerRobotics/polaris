@@ -28,29 +28,29 @@ class MjpegServer(StreamServer):
     def _make_handler(self_mjpeg):  # type: ignore
         class StreamingHandler(BaseHTTPRequestHandler):
             HTML = '''
-    <html>
-        <head>
-            <title>Polaris Debug</title>
-            <style>
-                body {
-                    background-color: black;
-                }
-
-                img {
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-50%, -50%);
-                    max-width: 100%;
-                    max-height: 100%;
-                }
-            </style>
-        </head>
-        <body>
-            <img src="stream.mjpg" />
-        </body>
-    </html>
-            '''
+                    <html>
+                        <head>
+                            <title>Polaris Debug</title>
+                            <style>
+                                body {
+                                    background-color: black;
+                                }
+                
+                                img {
+                                    position: absolute;
+                                    left: 50%;
+                                    top: 50%;
+                                    transform: translate(-50%, -50%);
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <img src="stream.mjpg" />
+                        </body>
+                    </html>
+                            '''
 
             def do_GET(self):
                 if self.path == '/':
@@ -69,9 +69,7 @@ class MjpegServer(StreamServer):
                     self.end_headers()
                     try:
                         while True:
-                            if not self_mjpeg._has_frame:
-                                time.sleep(0.1)
-                            else:
+                            if self_mjpeg._has_frame:
                                 pil_im = Image.fromarray(self_mjpeg._frame)
                                 stream = BytesIO()
                                 pil_im.save(stream, format='JPEG')
@@ -83,6 +81,7 @@ class MjpegServer(StreamServer):
                                 self.end_headers()
                                 self.wfile.write(frame_data)
                                 self.wfile.write(b'\r\n')
+                            time.sleep(0.033)
                     except Exception as e:
                         print('Removed streaming client %s: %s', self.client_address, str(e))
                 else:

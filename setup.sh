@@ -20,3 +20,10 @@ sudo pip install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian/
 # Cleanup
 cd ..
 rm -rf opencv-python/
+
+# Create the polaris service
+sudo cp polaris.service /lib/systemd/system/polaris.service
+sudo cp /lib/systemd/system/polaris.service /etc/systemd/system/polaris.service
+sudo chmod 644 /etc/systemd/system/polaris.service
+sudo systemctl daemon-reload
+sudo systemctl enable polaris.service
