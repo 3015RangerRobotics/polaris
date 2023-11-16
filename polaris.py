@@ -19,7 +19,7 @@ def main():
     remote_config_source: ConfigSource = NTConfigSource()
 
     capture = GStreamerCapture()
-    tag_detector = ArucoTagDetector(cv2.aruco.DICT_APRILTAG_36h11)
+    tag_detector = ArucoTagDetector(cv2.aruco.DICT_APRILTAG_16h5) # TODO: Change to 36h11 for 2024
     pose_estimator = MultiTargetCameraPoseEstimator()
     output_publisher: OutputPublisher = NT4OutputPublisher()
     stream_server = MjpegServer()

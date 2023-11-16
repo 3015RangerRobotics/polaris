@@ -15,3 +15,8 @@ DO NOT CHANGE
 6. Either reboot or run `sudo systemctl start polaris` to start
 
 After making changes to config or calibration, run `sudo systemctl restart polaris`
+
+## To update
+1. `sudo systemctl stop polaris`
+2. `git pull`
+3. `sudo systemctl start polaris`
