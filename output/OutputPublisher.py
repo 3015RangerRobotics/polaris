@@ -24,6 +24,7 @@ class NT4OutputPublisher(OutputPublisher):
             self._observations_pub = nt_table.getDoubleArrayTopic('observations').publish(
                 ntcore.PubSubOptions(periodic=0, sendAll=True, keepDuplicates=True))
             self._fps_pub = nt_table.getIntegerTopic('fps').publish()
+            self._init_complete = True
 
         # Send data
         if fps is not None:
