@@ -73,7 +73,7 @@ class CalibrationSession:
 def main():
     session = CalibrationSession()
 
-    cap = cv2.VideoCapture(CAMERA_ID)
+    cap = cv2.VideoCapture(CAMERA_ID, cv2.CAP_DSHOW)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT)
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3) # On
