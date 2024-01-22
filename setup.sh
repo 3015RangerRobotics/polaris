@@ -15,7 +15,7 @@ sudo pip install opencv_python*.whl
 
 # Install other python deps
 sudo apt install -y python3-pil
-sudo pip install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian/ robotpy
+sudo pip install --find-links https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpy
 
 # Cleanup
 cd ..
