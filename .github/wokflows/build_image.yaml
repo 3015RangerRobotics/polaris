@@ -1,0 +1,40 @@
+name: Build image
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: "Build Orange Pi 5"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: pguyot/arm-runner-action@HEAD
+        id: install_deps
+        with:
+          image_additional_mb: 1500
+          bind_mount_repository: true
+          base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v1.30/ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5.img.xz
+          commands: |
+            git clone https://github.com/3015RangerRobotics/polaris.git /opt/polaris
+            cd /opt/polaris
+            chmod +x setup.sh
+            ./setup.sh
+
+      - name: Compress built image
+        run: |
+          mv ${{ steps.install_deps.outputs.image }} polaris_opi5.img
+          sudo xz -T 0 -v polaris_opi5.img
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: polaris_opi5.img.xz
+          path: polaris_opi5.img.xz
+          if-no-files-found: error
