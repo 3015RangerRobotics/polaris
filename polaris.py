@@ -1,4 +1,3 @@
-import sys
 import time
 
 import cv2
@@ -10,7 +9,7 @@ from output.OutputPublisher import NT4OutputPublisher, OutputPublisher
 from output.overlay_util import *
 from output.StreamServer import MjpegServer
 from pipeline.CameraPoseEstimator import MultiTargetCameraPoseEstimator
-from pipeline.Capture import GStreamerCapture, DefaultCapture
+from pipeline.Capture import GStreamerCapture
 from pipeline.TagDetector import ArucoTagDetector
 
 def main():
@@ -39,8 +38,8 @@ def main():
 
     while True:
         remote_config_source.update(config)
-        timestamp = time.time()
         success, image = capture.get_frame(config)
+        timestamp = time.time()
 
         if not success:
             time.sleep(0.5)
