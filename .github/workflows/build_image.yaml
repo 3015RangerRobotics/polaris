@@ -19,10 +19,15 @@ jobs:
       - uses: pguyot/arm-runner-action@HEAD
         id: install_deps
         with:
-          image_additional_mb: 1500
+          image_additional_mb: 3000
           bind_mount_repository: true
           base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v1.30/ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5.img.xz
           commands: |
+            useradd polaris -b /home
+            usermod -a -G sudo polaris
+            mkdir /home/polaris
+            chown -R polaris /home/polaris
+            echo "polaris:polaris" | chpasswd
             git clone https://github.com/3015RangerRobotics/polaris.git /opt/polaris
             cd /opt/polaris
             chmod +x setup.sh
