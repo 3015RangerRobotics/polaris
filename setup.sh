@@ -10,12 +10,12 @@ cd opencv-python
 export ENABLE_HEADLESS=1
 export CMAKE_ARGS="-DWITH_GSTREAMER=ON"
 
-pip install --upgrade pip wheel
-pip wheel . --verbose
-sudo pip install opencv_python*.whl
+sudo pip3 install --upgrade pip wheel
+sudo pip3 wheel . --verbose
+sudo pip3 install opencv_python*.whl
 
 # Install other python deps
-sudo pip install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpy
+sudo pip3 install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpy
 
 # Cleanup
 cd ..
